@@ -10,6 +10,7 @@ Complete Code
           hopefully improve performance
     - perform a modal analysis
     - plot the time evolution of the amplitude of first modes
+    - save dipsplacements to a file before animating, hopefully improving speed and allowing for more data analysis
     - etc
 
 Report
