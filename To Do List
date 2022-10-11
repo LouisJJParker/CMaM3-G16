@@ -4,9 +4,12 @@ Finish GitHub set-up;
     - Properly use README to describe project
 
 Complete Code
-    - Set up all variables
+    - Set up user interface
     - replace OOP with an array
-    - Set up animation
+        - this should increase readability and 
+          hopefully improve performance
+    - perform a modal analysis
+    - plot the time evolution of the amplitude of first modes
     - etc
 
 Report

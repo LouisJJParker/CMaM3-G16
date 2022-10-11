@@ -7,6 +7,9 @@ L=1
 # Total simulation time
 final_time = 12000
 
+# Time step
+dt = 0.1
+
 # Number of oscillators
 n_b =65
 
@@ -17,7 +20,7 @@ k_young = 0.1
 rho=400
 
 # Non-linear coefficient
-alph =0.25
+alpha =0.25
 
 # Amplitude of initial condition
 pert_ini = 1.0

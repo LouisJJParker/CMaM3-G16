@@ -53,7 +53,7 @@ class graph(object):
             ax.add_patch(self.patches[i])
 
         #ax.axis('scaled')
-        ax.set_xlim(0,1)
+        ax.set_xlim(0,self.L)
         ax.set_ylim(-1,1)
 
         anim = FuncAnimation(fig, self.animate, init_func = self.init, 
