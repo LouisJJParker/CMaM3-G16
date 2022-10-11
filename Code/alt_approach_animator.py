@@ -1,6 +1,4 @@
 import math
-from re import I
-from tkinter import CENTER
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
@@ -8,7 +6,7 @@ from matplotlib.animation import FuncAnimation
 class graph(object):
     def __init__(self):
         self.L = 1 # string length
-        self.n_b = 17 # Number of oscillators
+        self.n_b = 65 # Number of oscillators
         self.rho = 400 # mass per unit length
         self.alpha = 0.25 #non-linear coefficient
         self.k_young = 0.1 # Young's modulus
@@ -60,7 +58,7 @@ class graph(object):
 
         anim = FuncAnimation(fig, self.animate, init_func = self.init, 
                             frames = self.final_time, repeat = False,
-                            interval = 0.0001, blit = True)
+                            interval = 0.1, blit = True)
 
         plt.show()
 
