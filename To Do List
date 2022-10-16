@@ -5,12 +5,9 @@ Finish GitHub set-up;
 
 Complete Code
     - Set up user interface
-    - replace OOP with an array
-        - this should increase readability and 
-          hopefully improve performance
     - perform a modal analysis
     - plot the time evolution of the amplitude of first modes
-    - save dipsplacements to a file before animating, hopefully improving speed and allowing for more data analysis
+    - implement a more accurate numerical derivation method (Runge Kutta)
     - etc
 
 Report

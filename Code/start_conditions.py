@@ -5,7 +5,7 @@
 L=1
 
 # Total simulation time
-final_time = 12000
+final_time = 120000
 
 # Time step
 dt = 0.1
