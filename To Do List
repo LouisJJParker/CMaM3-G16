@@ -1,13 +1,19 @@
 A quick to do list of things that need to be done
 
-Finish GitHub set-up;
-    - Properly use README to describe project
-
 Complete Code
     - Set up user interface
+        - Add initial velocity and displacement options
     - perform a modal analysis
+        - Fourier Transforms
     - plot the time evolution of the amplitude of first modes
     - implement a more accurate numerical derivation method (Runge Kutta)
+    - Comment the code to improve clarity
+    - Remove Bloat
+    - Make the code easy to use
+        - Offer comments to help printing for understanding of code
     - etc
 
 Report
+
+Extra (Part E)
+    - Consider Tolerances
