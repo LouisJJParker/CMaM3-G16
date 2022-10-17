@@ -11,10 +11,10 @@ final_time = 120000
 dt = 0.1
 
 # Number of oscillators
-n_b =65
+n_b =33
 
 # Young’s modulus
-k_young = 0.1
+k_young = 0.5
 
 # Mass per unit length of the string
 rho=400
