@@ -2,6 +2,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+from matplotlib.animation import PillowWriter
 import start_conditions
 from genericpath import exists
 
@@ -25,8 +26,8 @@ fig, ax = plt.subplots()
 line, = ax.plot(i,x)
 
 def main():
-    #write_file(run_without_graph())
-    graph_from_file("FPUT_experiment0.165.npy")
+    write_file(run_without_graph())
+    graph_from_file("FPUT_experiment{}{}.npy".format(dt,n_b))
     #plot_at_t(10000, read_file("FPUT_experiment0.165.npy"))
 
 def read_file(file_name):
@@ -38,10 +39,9 @@ def write_file(data):
     if exists(file_name):
         file=open(file_name,'w')
         file.close()
-        print('x')
     np.save(file=file_name, arr=data)
 
-def simulate(a,v,x):
+def simulate(a,v,x): # Using Euler's method
     for j in range(1,n_b-1):
         a[j] = ((k_young/rho) * 
                 (x[j-1]+x[j+1]-2*x[j]) * 
@@ -82,7 +82,12 @@ def graph_from_file(file_name):
     data = read_file(file_name)
 
     ani = animation.FuncAnimation(
-        fig, animate_from_data, frames=range(0,final_time), fargs=[data], interval=0.1, blit=True, repeat = False)
+        fig, animate_from_data, frames=range(0,final_time,40), fargs=[data], interval=0.1, blit=True, repeat = False)
+
+
+    writer = PillowWriter(fps=25)  
+    ani.save("demo_sine{}{}.gif".format(dt,n_b), writer=writer)  
+
 
     plt.show()
 
