@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from matplotlib.animation import PillowWriter
+from scipy.integrate import solve_ivp
 import start_conditions
 import os
 
@@ -18,7 +19,7 @@ final_time = start_conditions.final_time # total simulation time in seconds
 
 frame_count = int(final_time//dt) #number of simulated frames
 
-h = L/(n_b-3)
+h = L/(n_b-3) #maybe should be distance between x[i-1] and x[i+1]
 i = np.linspace(0,L,n_b)
 x = np.sin(i*2*np.pi)
 a = np.zeros_like(i)
@@ -29,7 +30,8 @@ fig, ax = plt.subplots()
 line, = ax.plot(i,x)
 
 def main():
-    #write_file(run_without_graph())
+    print("FPUT_experiment{}{}.npy".format(dt,n_b))
+    write_file(run_without_graph())
     graph_from_file("FPUT_experiment{}{}.npy".format(dt,n_b))
     #plot_at_t(10000, read_file("FPUT_experiment0.165.npy"))
 
@@ -48,25 +50,33 @@ def simulate(a,v,x): # Using Euler's method
         a[j] = ((k_young/(rho*h**2)) * 
                 (x[j-1]+x[j+1]-2*x[j]) * 
                 (1+alpha*(x[j+1]-x[j-1])))
+    return a, v, x
+
+def euler_method(a,v,x):
+    a, v, x = simulate(a,v,x)
     v += a*dt
     x += v*dt
     return x
 
+
 def run_without_graph():
     data = []
     for i in range(frame_count):
-        data.append(simulate(a,v,x).copy())
+        data.append(euler_method(a,v,x).copy())
     return data
 
+
 def animate(t):
-    y = simulate(a,v,x)
+    y = euler_method(a,v,x)
     line.set_ydata(y)
     return line,
+
 
 def animate_from_data(frame, data):
     y = data[frame]
     line.set_ydata(y)
     return line,
+
 
 def show_graph():
     ani = animation.FuncAnimation(
@@ -74,11 +84,13 @@ def show_graph():
 
     plt.show()
 
+
 def graph_from_data(data):
     ani = animation.FuncAnimation(
         fig, animate_from_data, frames=range(0,frame_count,40), fargs=[data], interval=0.1, blit=True, repeat = False)
 
-    plt.show()    
+    plt.show()
+
 
 def graph_from_file(file_name):
     data = read_file(file_name)
@@ -86,12 +98,10 @@ def graph_from_file(file_name):
     ani = animation.FuncAnimation(
         fig, animate_from_data, frames=range(0,frame_count,1), fargs=[data], interval=0.1, blit=True, repeat = False)
 
-
-    #writer = PillowWriter(fps=25)  
-    #ani.save("demo_sine{}{}.gif".format(dt,n_b), writer=writer)  
-
-
+    writer = PillowWriter(fps=25)  
+    ani.save("demo_sine{}{}.gif".format(dt,n_b), writer=writer)  
     plt.show()
+
 
 def plot_at_t(t,data):
     line.set_ydata(data[t])

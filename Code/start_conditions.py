@@ -5,16 +5,19 @@
 L=1
 
 # Total simulation time
-final_time = 120000
+final_time = 12000
 
 # Time step
 dt = 0.1
 
+# RK steps
+RK_n = 4
+
 # Number of oscillators
-n_b =33
+n_b =65
 
 # Young’s modulus
-k_young = 0.5
+k_young = 0.1
 
 # Mass per unit length of the string
 rho=400
