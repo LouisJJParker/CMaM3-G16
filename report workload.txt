@@ -1,0 +1,7 @@
+report:
+
+intro + ui = haziq + sinatra (1/2 pages each)
+
+validation + study = sinatra + philip + ben (1 page validation, 2 page study)
+
++ task E = haziq + louis (1 or 1/2 page)
