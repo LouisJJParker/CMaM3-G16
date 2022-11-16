@@ -117,7 +117,7 @@ def whitebox_interface():
         print(""); print("-----"); print("")
         
         # Summon the solution program
-        # Insert the following program's name here, w/o the suffix ".py"
+        # Insert the following program's name below, w/o the suffix ".py"
         import program_to_be_called
         program_to_be_called
         
