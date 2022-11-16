@@ -1,35 +1,35 @@
-#Input parameters
+# Welcome to input parameters user interface
+# To avoid errors, please input acceptable parameter values
 
+# String length: L = <POSITIVE INTEGER>
+L = 1
 
-# String lenght
-L=1
-
-# Total simulation time
+# Total simulation time: final_time = <POSITIVE INTEGER>
 final_time = 12000
 
-# Time step
+# Time step: dt = <POSITIVE FLOAT>
 dt = 0.1
 
-# RK steps
+# RK steps: RK_n = <POSITIVE INTEGER>
 RK_n = 4
 
-# Number of oscillators
-n_b =65
+# Number of oscillators: n_b = <POSITIVE INTEGER>
+n_b = 65
 
-# Young’s modulus
+# Young’s modulus: k_young = <POSITIVE FLOAT>
 k_young = 0.1
 
-# Mass per unit length of the string
-rho=400
+# Mass per unit length of the string: rho = <POSITIVE FLOAT>
+rho = 400
 
-# Non-linear coefficient
-alpha =0.25
+# Non-linear coefficient: alpha = <POSITIVE FLOAT>
+alpha = 0.25
 
-# Amplitude of initial condition
+# Amplitude of initial condition: pert_ini = <POSITIVE FLOAT>
 pert_ini = 1.0
 
-#initial conditions
-# 1: single sine
-# 2: half sine
-# 3: parabola
+# Initial condition setting
+    # "init_type = 1": single sine
+    # "init_type = 2": half sine
+    # "init_type = 3": parabola
 init_type = 1
