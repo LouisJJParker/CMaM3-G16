@@ -1,4 +1,4 @@
-# DEV: M-H-Fahrudin, S-Li, L-Parker, B-Beale, P-Wakely-Skinnarland
+# DEV: M-H-Fahrudin, S-Li, L-Parker, B-Beale, and P-Wakely-Skinnarl
 # Build: v2.0
 # Usage: FPUT problem solving program
 
@@ -158,8 +158,3 @@ def exceptional_handling(prompt, data_type, j):
 whitebox_interface()
 
 # ENDS: Whitebox input parameters user interface
-
-
-# Eliminate redundancy in other linked programs
-# Help merging "function_oriented_prog.py" & "RK_method.py"
-# Complete code efficiency & optimization of the merged file
