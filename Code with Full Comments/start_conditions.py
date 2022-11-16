@@ -1,7 +1,7 @@
 # Welcome to input parameters user interface
 # To avoid errors, please input acceptable parameter values
 # Save this file before run any linked further programs
-# DEV: B-Beale, M-H-Fahrudin, S-Li, L-Parker, P-Wakely-Skinnarland
+# DEV: B-Beale, M-H-Fahrudin, S-Li, L-Parker, P-Wakley-Skinnarland
 
 # String length: L = <POSITIVE INTEGER>
 L = 1
