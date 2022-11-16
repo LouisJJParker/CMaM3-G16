@@ -1,5 +1,6 @@
 # Welcome to input parameters user interface
 # To avoid errors, please input acceptable parameter values
+# DEV: B-Beale, M-H-Fahrudin, S-Li, L-Parker, P-Wakely-Skinnarland
 
 # String length: L = <POSITIVE INTEGER>
 L = 1
