@@ -1,4 +1,4 @@
-# DEV: M-H-Fahrudin, S-Li, L-Parker, B-Beale, P-Wakely-Skinnarland
+# DEV: M-H-Fahrudin, S-Li, L-Parker, B-Beale, and P-Wakely-Skinnarl
 # Build: v2.0
 # Usage: FPUT problem solving program
 
@@ -117,7 +117,7 @@ def whitebox_interface():
         print(""); print("-----"); print("")
         
         # Summon the solution program
-        # Insert the following program's name below, w/o the suffix ".py"
+        # Insert the following program's name here, w/o the suffix ".py"
         import program_to_be_called
         program_to_be_called
         
@@ -158,8 +158,3 @@ def exceptional_handling(prompt, data_type, j):
 whitebox_interface()
 
 # ENDS: Whitebox input parameters user interface
-
-
-# Eliminate redundancy in other linked programs
-# Help merging "function_oriented_prog.py" & "RK_method.py"
-# Complete code efficiency & optimization of the merged file
