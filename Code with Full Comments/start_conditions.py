@@ -63,7 +63,7 @@ def whitebox_interface():
     import time
     
     print("")
-    print("DEV: M-H-Fahrudin, S-Li, L-Parker, B-Beale, P-Wakely-Skinnarland")
+    print("DEV: M-H-Fahrudin, S-Li, L-Parker, B-Beale, P-Wakley-Skinnarland")
     print("Build: v2.0")
     print("Usage: FPUT problem solving program")
     print(""); print("-----"); print("")
