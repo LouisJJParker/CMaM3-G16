@@ -262,7 +262,7 @@ def graph_from_file(file_name):
     
     writer = PillowWriter(fps = 80)
     # Save the generated animated plotting
-    ani.save("demo_sine{}{}.gif".format(dt,n_b), writer = writer)
+    ani.save("demo_simulation_{}dt_{}N_ver{}.gif".format(dt,n_b,method_type), writer = writer)
     plt.show() # Show the generated animated plotting
 
 
