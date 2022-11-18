@@ -10,8 +10,8 @@
 # To avoid errors, please input acceptable parameter values
 # Save this file before run any linked further programs
 
-# String length: L = <POSITIVE INTEGER>
-L = 1
+# String length: L = <POSITIVE FLOAT>
+L = 1.0
 
 # Total simulation time: final_time = <POSITIVE INTEGER>
 # Unit: Second
@@ -39,7 +39,6 @@ alpha = 0.25
 # Amplitude of initial condition: pert_ini = <POSITIVE FLOAT>
 pert_ini = 1.0
 
-# This variable is not required
 # Initial condition setting
     # "init_type = 1": single sine
     # "init_type = 2": half sine
@@ -62,22 +61,21 @@ def whitebox_interface():
     global time
     import time
     
-    print("")
-    print("DEV: M-H-Fahrudin, S-Li, L-Parker, B-Beale, P-Wakely-Skinnarland")
+    print("n\DEV: M-H-Fahrudin, S-Li, L-Parker, B-Beale, P-Wakely-Skinnarland")
     print("Build: v2.0")
-    print("Usage: FPUT problem solving program")
-    print(""); print("-----"); print("")
+    print("Usage: FPUT problem solving program\n")
+    print("-----\n")
     
-    print("Welcome"); print("")
+    print("Welcome\n")
     
     print("To run this program in whitebox mode, input 1 to proceed;")
     time.sleep(0.2)
     initiation = input(str("Or input any other character to terminate: "))
-    print(""); print("-----")
+    print("\n-----")
     
     if initiation == "1":
         
-        print(""); print("### PROGRAM INITIATED. ###")
+        print("\n### PROGRAM INITIATED. ###")
         
         prompt_parameter_array = [
             "String Length", 
@@ -88,11 +86,12 @@ def whitebox_interface():
             "Young’s Modulus", 
             "Mass per Unit Length of the String", 
             "Non-Linear Coefficient", 
-            "Amplitude of Initial Condition"
+            "Amplitude of Initial Condition",
+            "Initial Condition Setting"
             ]
         
         data_type_parameter_list = [
-            1, 1, 0.1, 1, 1, 0.1, 0.1, 0.1, 0.1
+            0.1, 1, 0.1, 1, 1, 0.1, 0.1, 0.1, 0.1, 1
             ]
         
         global parameter_list
@@ -103,55 +102,78 @@ def whitebox_interface():
             
             parameter_list.append(
                 exceptional_handling(
-                    prompt_parameter_array[i], data_type_parameter_list[i], i)
+                    prompt_parameter_array[i], data_type_parameter_list[i], i
+                    )
                                   )
       
-        print(""); print("-----"); print("")
-        print("Please final check the input parameters:"); print("")
+        print("\n-----\n")
+        print("### Parameters inserted: ###\n")
         
         for k in range(len(prompt_parameter_array)):
             print(
                 prompt_parameter_array[k], ":", parameter_list[k]
                 )
         
-        print(""); print("-----"); print("")
+        print("\n-----\n")
         
         # Summon the solution program
         # Insert the following program's name here, w/o the suffix ".py"
         import program_to_be_called
         program_to_be_called
         
-        print(""); print("### PROGRAM EXECUTED. ###")
+        print("\n### PROGRAM EXECUTED. ###")
         
     else:
-        print(""); print("### PROGRAM ELIMINATED. ###")
+        print("\n### PROGRAM ELIMINATED. ###")
 
 # Exceptional haldling for incorrect value inputs
 def exceptional_handling(prompt, data_type, j):
     
     while True:
         try:
-            print("-----"); print("")
+            print("-----\n")
             print("Please input parameter:", prompt)
             if j == (1 or 2):
                 print("Unit: Second")
-            
-            if type(data_type) is int:
-                print(prompt, "= <POSITIVE INTEGER>")
+                
+            if j == 9:
+                init_condition_prompt = [
+                    "Single-sine initial condition",
+                    "Half-sine initial condition",
+                    "Parabolic initial condition"
+                    ]
+                print(prompt, "= Either of {1 OR 2 OR 3}\n")
+                
+                for k in range(len(init_condition_prompt)):
+                    print((k + 1), ":", init_condition_prompt[k])
+
                 print("")
                 time.sleep(0.2)
                 parameter = int(input("Type in here: "))
-            elif type(data_type) is float:
-                print(prompt, "= <POSITIVE FLOAT>")
-                print("")
-                time.sleep(0.2)
-                parameter = float(input("Type in here: "))
-            
-            if parameter <=0:
-                parameter = int("Error Trigger") # Non-positive input handling
+                
+                # Deny out-of-range option input
+                if (parameter not in [1, 2, 3]) == True:
+                    parameter = int("Error trigger") # Re-input trigger
+                
+            else:
+                if type(data_type) is int:
+                    print(prompt, "= <POSITIVE INTEGER>\n")
+                    time.sleep(0.2)
+                    parameter = int(input("Type in here: "))
+                elif type(data_type) is float:
+                    print(prompt, "= <POSITIVE FLOAT>\n")
+                    time.sleep(0.2)
+                    parameter = float(input("Type in here: "))
+                
+                # Deny non-positive input
+                if parameter <=0:
+                    parameter = int("Error Trigger") # Re-input trigger
             break
         except ValueError:
-            print("### INPUT VALUE ERROR. ###"); print("")
+            print("### INPUT VALUE ERROR. ###\n")
+    
+    if j == 9:
+        parameter = init_condition_prompt[parameter - 1]
             
     return parameter
 
