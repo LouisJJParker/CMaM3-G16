@@ -10,8 +10,8 @@
 # To avoid errors, please input acceptable parameter values
 # Save this file before run any linked further programs
 
-# String length: L = <POSITIVE INTEGER>
-L = 1
+# String length: L = <POSITIVE FLOAT>
+L = 1.0
 
 # Total simulation time: final_time = <POSITIVE INTEGER>
 # Unit: Second
@@ -39,7 +39,6 @@ alpha = 0.25
 # Amplitude of initial condition: pert_ini = <POSITIVE FLOAT>
 pert_ini = 1.0
 
-# This variable is not required
 # Initial condition setting
     # "init_type = 1": single sine
     # "init_type = 2": half sine
@@ -63,7 +62,7 @@ def whitebox_interface():
     import time
     
     print("")
-    print("DEV: M-H-Fahrudin, S-Li, L-Parker, B-Beale, P-Wakley-Skinnarland")
+    print("DEV: M-H-Fahrudin, S-Li, L-Parker, B-Beale, P-Wakely-Skinnarland")
     print("Build: v2.0")
     print("Usage: FPUT problem solving program")
     print(""); print("-----"); print("")
@@ -92,7 +91,7 @@ def whitebox_interface():
             ]
         
         data_type_parameter_list = [
-            1, 1, 0.1, 1, 1, 0.1, 0.1, 0.1, 0.1
+            0.1, 1, 0.1, 1, 1, 0.1, 0.1, 0.1, 0.1
             ]
         
         global parameter_list
@@ -103,7 +102,8 @@ def whitebox_interface():
             
             parameter_list.append(
                 exceptional_handling(
-                    prompt_parameter_array[i], data_type_parameter_list[i], i)
+                    prompt_parameter_array[i], data_type_parameter_list[i], i
+                    )
                                   )
       
         print(""); print("-----"); print("")
