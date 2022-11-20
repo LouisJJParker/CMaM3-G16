@@ -63,7 +63,7 @@ if init_type == 1:
 elif init_type == 2:
     x = (pert_ini)*np.sin(np.pi*i) # Gives out the half sine wave displacement profile
 elif init_type == 3:
-    x = -(pert_ini)*np.pi(np.pi*i) # Gives out the parabola displacement profile
+    x = (pert_ini)-(np.sqrt(pert_ini)-2*np.sqrt(pert_ini)*i)**2 # Gives out the parabola displacement profile
 
 x[0] = x[-1] = 0 # Setting the boundary conditions of the experiment
 
