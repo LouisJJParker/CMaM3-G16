@@ -44,7 +44,7 @@ pert_ini = 1.0
     # "init_type = 1": single sine
     # "init_type = 2": half sine
     # "init_type = 3": parabola
-init_type = 1
+init_type = 3
 
 # Method of solving the Second Order ODE:-
     # "method_type = 1" : Euler Method
@@ -99,14 +99,14 @@ def whitebox_interface():
             "Time Step", 
             "Runge-Kutta Steps", 
             "Number of Oscillators", 
-            "Young’s Modulus", 
+            "Young's Modulus", 
             "Mass per Unit Length of the String", 
             "Non-Linear Coefficient", 
             "Amplitude of Initial Condition"
             ]
         
         data_type_parameter_list = [
-            1, 1, 0.1, 1, 1, 0.1, 0.1, 0.1, 0.1
+            0.1, 1, 0.1, 1, 1, 0.1, 0.1, 0.1, 0.1
             ]
         
         global parameter_list
@@ -132,8 +132,6 @@ def whitebox_interface():
         
         # Summon the solution program
         # Insert the following program's name here, w/o the suffix ".py"
-        import program_to_be_called
-        program_to_be_called
         
         print(""); print("### PROGRAM EXECUTED. ###")
         

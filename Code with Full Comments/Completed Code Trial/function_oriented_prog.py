@@ -59,13 +59,14 @@ if init_type == 1:
 elif init_type == 2:
     x = (pert_ini)*np.sin(np.pi*i) # Gives out the half sine wave displacement profile
 elif init_type == 3:
-    x = -(pert_ini)*np.pi(np.pi*i) # Gives out the parabola displacement profile
+    x = (pert_ini)-(np.sqrt(pert_ini)-2*np.sqrt(pert_ini)*i)**2 # Gives out the parabola displacement profile
 
 x[0] = x[-1] = 0
 
 # Graphic plotting organizing
 fig, ax = plt.subplots() # Acceleration against displacement of particles
 line, = ax.plot(i,x)
+ax.set(ylim= (-pert_ini,pert_ini), xlim= (0,L))
 #------------------------------------------------------------------------------------------------------------
 r = [-1, 1]
 
@@ -256,13 +257,13 @@ def graph_from_file(file_name):
     # Generate animated plotting
     # Function "animate_from_data()" sets particle displacements as y-axis values
     ani = animation.FuncAnimation(
-        fig, animate_from_data, frames = range(0,frame_count,50), 
+        fig, animate_from_data, frames = range(0,frame_count,1), 
         fargs = [data], interval = 0.1, blit = True, repeat = False
         )
     
-    writer = PillowWriter(fps = 80)
+    # writer = PillowWriter(fps = 80)
     # Save the generated animated plotting
-    ani.save("demo_simulation_{}dt_{}N_ver{}.gif".format(dt,n_b,method_type), writer = writer)
+    # ani.save("demo_simulation_{}dt_{}N_ver{}.gif".format(dt,n_b,method_type), writer = writer)
     plt.show() # Show the generated animated plotting
 
 
@@ -299,7 +300,7 @@ def FFT(file_name):
     p4, _ = find_peaks(yf_amp_4)   # Finding the time at which the fourth peak is
     p4_val = np.take(yf_amp_4, p4) # Taking the value at that time
     
-    # Changing the time step vaue into time
+    # Changing the time step value into time
     p1 = p1*dt
     p2 = p2*dt
     p3 = p3*dt
