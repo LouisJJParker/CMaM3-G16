@@ -70,6 +70,7 @@ x[0] = x[-1] = 0 # Setting the boundary conditions of the experiment
 # Graphic plotting organizing
 fig, ax = plt.subplots() # Acceleration against displacement of particles
 line, = ax.plot(i,x)
+ax.set_ylim(-pert_ini-0.1, pert_ini+0.1)
 ax.set_title('x(t)') # Labeling the graph title
 ax.set_ylabel('Displacement of Oscillators') # Labeling the y axis of the plot
 
@@ -299,20 +300,20 @@ def plot_at_t(file_name):
     # Plotting all graph based on the inputed time
     # First plot
     plt.title("Plot at time {}".format(t1))
-    plt.ylim(-pert_ini, pert_ini) # Setting the size of the y axis of the plot
+    plt.ylim(-pert_ini-0.1, pert_ini+0.1) # Setting the size of the y axis of the plot
     plt.plot(i, data[t10])
     plt.ylabel('Displacement of Oscillators')
     plt.show()
     
     # Second plot
     plt.title("Plot at time {}".format(t2))
-    plt.ylim(-pert_ini, pert_ini) # Setting the size of the y axis of the plot
+    plt.ylim(-pert_ini-0.1, pert_ini+0.1) # Setting the size of the y axis of the plot
     plt.plot(i, data[t20])
     plt.ylabel('Displacement of Oscillators')
     plt.show()
     
     plt.title("Plot at time {}".format(t3))
-    plt.ylim(-pert_ini, pert_ini) # Setting the size of the y axis of the plot
+    plt.ylim(-pert_ini-0.1, pert_ini+0.1) # Setting the size of the y axis of the plot
     plt.plot(i, data[t30])
     plt.ylabel('Displacement of Oscillators')
     plt.show()
@@ -360,6 +361,7 @@ def FFT(file_name):
     plt.xlabel('Time')
     plt.ylabel('Energy')
     plt.title('FFT')
+    plt.ylim(0, pert_ini+0.1)
     
     # PLotting the all the FFT solution on a single figure
     # Label each plots and placing a legend tab
