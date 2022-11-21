@@ -83,14 +83,15 @@ def whitebox_interface():
     
     print("Welcome\n")
     
-    print("To run this program in whitebox mode, input 1 to proceed:")
+    print("To run this program in whitebox mode, input 1 to proceed")
+    print("To run this program w/ blackbox parameters, input 2 to proceed")
     time.sleep(0.2)
     initiation = input(str("Or input any other character to terminate: "))
     print("\n-----")
     
     if initiation == "1":
         
-        print("\n### PROGRAM INITIATED. ###")
+        print("\n### PROGRAM INITIATED in Whitebox Mode. ###")
         
         prompt_parameter_array = [
             "String Length", 
@@ -112,6 +113,7 @@ def whitebox_interface():
             0.1, 1, 0.1, 1, 1, 0.1, 0.1, 0.1, 0.1, 1, 1, 1, 0.1
             ]
         
+        global parameter_list
         parameter_list = []
         
         i = 0
@@ -143,44 +145,35 @@ def whitebox_interface():
         
         print("\n-----\n")
         
-        # Parameter extraction before calling the solution prgram
-        L = parameter_list[0]
-        final_time = parameter_list[1]
-        dt = parameter_list[2]
-        RK_n = parameter_list[3]
-        n_b = parameter_list[4]
-        k_young = parameter_list[5]
-        rho = parameter_list[6]
-        alpha = parameter_list[7]
-        pert_ini = parameter_list[8]
         
         if parameter_list[9] == "Single-sine initial condition":
-            init_type = 1
+            parameter_list[9] = 1
         elif parameter_list[9] == "Half-sine initial condition":
-            init_type = 2
+            parameter_list[9] = 2
         else:
-            init_type = 3
+            parameter_list[9] = 3
         
         if parameter_list[10] == "Euler's Method":
-            method_type = 1
+            parameter_list[10] = 1
         else:
-            method_type = 2
+            parameter_list[10] = 2
         
         if parameter_list[11] == "YES, continue w/ tolerance":
-            toggle_tol = 1
+            parameter_list[11] = 1
         else:
-            toggle_tol = 2
+            parameter_list[11] = 2
         
         if toggle_tol == 1:
             err = parameter_list[12]
         
+        global white_box_run
+        white_box_run = True
+   
+    elif initiation == "2":
         
-        # Summon the solution program
-        # Insert the following program's name here, w/o the suffix ".py"
-        import program_to_be_called
-        program_to_be_called
-        
-        print("\n### PROGRAM EXECUTED. ###")
+        print("\n### PROGRAM INITIATED in Blackbox Mode. ###")
+        global black_box_run
+        black_box_run = True
         
     else:
         print("\n### PROGRAM ELIMINATED. ###")
@@ -263,7 +256,7 @@ def exceptional_handling(prompt, data_type, j):
                     parameter = float(input("Type in here: "))
                 
                 # Deny non-positive input
-                if parameter <=0:
+                if parameter <= 0:
                     parameter = int("Error Trigger") # Re-input trigger
             break
         except ValueError:
@@ -278,6 +271,44 @@ def exceptional_handling(prompt, data_type, j):
             
     return parameter
 
+white_box_run = False
+black_box_run = False
 whitebox_interface()
+
+# Parameter extraction before calling the solution program
+if white_box_run == True:
+    
+    L = parameter_list[0]
+    final_time = parameter_list[1]
+    dt = parameter_list[2]
+    RK_n = parameter_list[3]
+    n_b = parameter_list[4]
+    k_young = parameter_list[5]
+    rho = parameter_list[6]
+    alpha = parameter_list[7]
+    pert_ini = parameter_list[8]
+    init_type = parameter_list[9]
+    method_type = parameter_list[10]
+    toggle_tol = parameter_list[11]
+    
+    if toggle_tol == 1:
+        err = parameter_list[12]
+    
+    print("\n### CALCULATION IN PROGRESS. ###")
+    
+    # Summon the solution program
+    # Insert the following program's name here, w/o the suffix ".py"
+    import function_oriented_prog
+    function_oriented_prog
+    print("\n### PROGRAM EXECUTED. ###")
+
+if black_box_run == True:
+    print("\n### CALCULATION IN PROGRESS. ###")
+    # Summon the solution program
+    # Insert the following program's name here, w/o the suffix ".py"
+    import function_oriented_prog
+    function_oriented_prog
+    print("\n### PROGRAM EXECUTED. ###")
+
 
 # ENDS: Whitebox input parameters user interface
