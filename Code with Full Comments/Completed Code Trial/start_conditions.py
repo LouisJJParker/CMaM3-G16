@@ -2,7 +2,7 @@
 # Build: v2.0
 # Usage: FPUT problem solving program
 
-#------------------------------------------------------------------------------------------------------------
+# -----
 
 # STARTS: Blackbox input parameters user interface
 
@@ -10,8 +10,8 @@
 # To avoid errors, please input acceptable parameter values
 # Save this file before run any linked further programs
 
-# String length: L = <POSITIVE INTEGER>
-L = 1
+# String length: L = <POSITIVE FLOAT>
+L = 1.0
 
 # Total simulation time: final_time = <POSITIVE INTEGER>
 # Unit: Second
@@ -39,31 +39,30 @@ alpha = 0.25
 # Amplitude of initial condition: pert_ini = <POSITIVE FLOAT>
 pert_ini = 1.0
 
-# This variable is not required
-# Initial condition setting:-
+# Initial condition setting
     # "init_type = 1": single sine
     # "init_type = 2": half sine
     # "init_type = 3": parabola
-init_type = 3
+init_type = 1
 
-# Method of solving the Second Order ODE:-
-    # "method_type = 1" : Euler Method
-    # "method_type = 2" : 4th Order Runge-Kutta Method
+# Method chosen to solve the Second Order ODE
+    # "method_type = 1": Euler's Method
+    # "method_type = 2": Runge-Kutta Method on 4th Order
 method_type = 1
 
-# Do you want to run the simulation with tolerance? (1=YES / 2=NO)
-toggle_tol = 2
+# Toggle of running w/ tolerance
+    # "toggle_tol = 1": YES, w/ tolerance
+    # "toggle_tol = 2": NO, w/o tolerance
+toggle_tol = 1
 
-# The percentage error for tolerance calculation: err = <POSITIVE FLOAT>
-# (Only available if simulation is run with tolerance)
-err = 1
-
-
+# Tolerance percentage error: err = <POSITIVE FLOAT>
+    # Only available w/ toerance toggled on
+err = 10
 
 # ENDS: Blackbox input parameters user interface
 
 
-#------------------------------------------------------------------------------------------------------------
+# -----
 
 
 # STARTS: Whitebox input parameters user interface
@@ -76,22 +75,23 @@ def whitebox_interface():
     global time
     import time
     
-    print("")
-    print("DEV: M-H-Fahrudin, S-Li, L-Parker, B-Beale, P-Wakley-Skinnarland")
+    print(
+        "n\DEV: M-H-Fahrudin, S-Li, L-Parker, B-Beale, P-Wakely-Skinnarland")
     print("Build: v2.0")
-    print("Usage: FPUT problem solving program")
-    print(""); print("-----"); print("")
+    print("Usage: FPUT problem solving program\n")
+    print("-----\n")
     
-    print("Welcome"); print("")
+    print("Welcome\n")
     
-    print("To run this program in whitebox mode, input 1 to proceed;")
+    print("To run this program in whitebox mode, input 1 to proceed")
+    print("To run this program w/ blackbox parameters, input 2 to proceed")
     time.sleep(0.2)
     initiation = input(str("Or input any other character to terminate: "))
-    print(""); print("-----")
+    print("\n-----")
     
     if initiation == "1":
         
-        print(""); print("### PROGRAM INITIATED. ###")
+        print("\n### PROGRAM INITIATED in Whitebox Mode. ###")
         
         prompt_parameter_array = [
             "String Length", 
@@ -99,74 +99,216 @@ def whitebox_interface():
             "Time Step", 
             "Runge-Kutta Steps", 
             "Number of Oscillators", 
-            "Young's Modulus", 
+            "Young’s Modulus", 
             "Mass per Unit Length of the String", 
             "Non-Linear Coefficient", 
-            "Amplitude of Initial Condition"
+            "Amplitude of Initial Condition",
+            "Initial Condition Setting",
+            "Solution Method Setting",
+            "Tolerance ON/OFF Switch",
+            "Tolerance Percentage Error"
             ]
         
         data_type_parameter_list = [
-            0.1, 1, 0.1, 1, 1, 0.1, 0.1, 0.1, 0.1
+            0.1, 1, 0.1, 1, 1, 0.1, 0.1, 0.1, 0.1, 1, 1, 1, 0.1
             ]
         
         global parameter_list
         parameter_list = []
         
-        for i in range(len(prompt_parameter_array)):
+        i = 0
+        tolerance_ON = True
+        
+        while (i <= (len(prompt_parameter_array) - 1)) and (
+                tolerance_ON == True
+                ):
             print("")
             
             parameter_list.append(
                 exceptional_handling(
-                    prompt_parameter_array[i], data_type_parameter_list[i], i)
-                                  )
+                    prompt_parameter_array[i], data_type_parameter_list[i], i
+                    ))
+            
+            if (i == len(prompt_parameter_array) - 2) and (
+                    parameter_list[i] == "NO, continue w/o tolerance"):
+                tolerance_ON = False
+            else:
+                i += 1
       
-        print(""); print("-----"); print("")
-        print("Please final check the input parameters:"); print("")
+        print("\n-----\n")
+        print("### Parameters inserted: ###\n")
         
-        for k in range(len(prompt_parameter_array)):
+        for k in range(len(parameter_list)):
             print(
                 prompt_parameter_array[k], ":", parameter_list[k]
                 )
         
-        print(""); print("-----"); print("")
+        print("\n-----\n")
         
-        # Summon the solution program
-        # Insert the following program's name here, w/o the suffix ".py"
         
-        print(""); print("### PROGRAM EXECUTED. ###")
+        if parameter_list[9] == "Single-sine initial condition":
+            parameter_list[9] = 1
+        elif parameter_list[9] == "Half-sine initial condition":
+            parameter_list[9] = 2
+        else:
+            parameter_list[9] = 3
+        
+        if parameter_list[10] == "Euler's Method":
+            parameter_list[10] = 1
+        else:
+            parameter_list[10] = 2
+        
+        if parameter_list[11] == "YES, continue w/ tolerance":
+            parameter_list[11] = 1
+        else:
+            parameter_list[11] = 2
+        
+        if toggle_tol == 1:
+            err = parameter_list[12]
+        
+        global white_box_run
+        white_box_run = True
+   
+    elif initiation == "2":
+        
+        print("\n### PROGRAM INITIATED in Blackbox Mode. ###")
+        global black_box_run
+        black_box_run = True
         
     else:
-        print(""); print("### PROGRAM ELIMINATED. ###")
+        print("\n### PROGRAM ELIMINATED. ###")
 
 # Exceptional haldling for incorrect value inputs
 def exceptional_handling(prompt, data_type, j):
     
     while True:
         try:
-            print("-----"); print("")
+            print("-----\n")
             print("Please input parameter:", prompt)
             if j == (1 or 2):
                 print("Unit: Second")
             
-            if type(data_type) is int:
-                print(prompt, "= <POSITIVE INTEGER>")
+            # Special case when choosing the Initial Condition
+            if j == 9:
+                init_condition_prompt = [
+                    "Single-sine initial condition",
+                    "Half-sine initial condition",
+                    "Parabolic initial condition"
+                    ]
+                print(prompt, "= Either of {1 OR 2 OR 3}\n")
+                
+                for k in range(len(init_condition_prompt)):
+                    print((k + 1), ":", init_condition_prompt[k])
+
                 print("")
                 time.sleep(0.2)
                 parameter = int(input("Type in here: "))
-            elif type(data_type) is float:
-                print(prompt, "= <POSITIVE FLOAT>")
+                
+                # Deny out-of-range option input
+                if (parameter not in [1, 2, 3]) == True:
+                    parameter = int("Error trigger") # Re-input trigger
+            
+            # Special case when choosing the Solution Method Type
+            elif j == 10:
+                solution_method_prompt = [
+                    "Euler's Method", "Runge-Kutta Method on 4th Order"
+                    ]
+                print(prompt, "= Either of {1 OR 2}\n")
+                
+                for k in range(len(solution_method_prompt)):
+                    print((k + 1), ":", solution_method_prompt[k])
+                
                 print("")
                 time.sleep(0.2)
-                parameter = float(input("Type in here: "))
-            
-            if parameter <=0:
-                parameter = int("Error Trigger") # Non-positive input handling
+                parameter = int(input("Type in here: "))
+                
+                # Deny out-of-range option input
+                if (parameter not in [1, 2]) == True:
+                    parameter = int("Error trigger") # Re-input trigger
+                
+            # Special case when toggling the Tolerance ON/OFF
+            elif j == 11:
+                tolerance_toggle_prompt = [
+                    "YES, continue w/ tolerance",
+                    "NO, continue w/o tolerance"
+                    ]
+                print(prompt, "= Either of {1 OR 2}\n")
+                
+                for k in range(len(tolerance_toggle_prompt)):
+                    print((k + 1), ":", tolerance_toggle_prompt[k])
+                
+                print("")
+                time.sleep(0.2)
+                parameter = int(input("Type in here: "))
+                
+                # Deny out-of-range option input
+                if (parameter not in [1, 2]) == True:
+                    parameter = int("Error trigger") # Re-input trigger
+                
+            else:
+                if type(data_type) is int:
+                    print(prompt, "= <POSITIVE INTEGER>\n")
+                    time.sleep(0.2)
+                    parameter = int(input("Type in here: "))
+                elif type(data_type) is float:
+                    print(prompt, "= <POSITIVE FLOAT>\n")
+                    time.sleep(0.2)
+                    parameter = float(input("Type in here: "))
+                
+                # Deny non-positive input
+                if parameter <= 0:
+                    parameter = int("Error Trigger") # Re-input trigger
             break
         except ValueError:
-            print("### INPUT VALUE ERROR. ###"); print("")
+            print("### INPUT VALUE ERROR. ###\n")
+    
+    if j == 9:
+        parameter = init_condition_prompt[parameter - 1]
+    elif j == 10:
+        parameter = solution_method_prompt[parameter - 1]
+    elif j == 11:
+        parameter = tolerance_toggle_prompt[parameter - 1]
             
     return parameter
 
+white_box_run = False
+black_box_run = False
 whitebox_interface()
+
+# Parameter extraction before calling the solution program
+if white_box_run == True:
+    
+    L = parameter_list[0]
+    final_time = parameter_list[1]
+    dt = parameter_list[2]
+    RK_n = parameter_list[3]
+    n_b = parameter_list[4]
+    k_young = parameter_list[5]
+    rho = parameter_list[6]
+    alpha = parameter_list[7]
+    pert_ini = parameter_list[8]
+    init_type = parameter_list[9]
+    method_type = parameter_list[10]
+    toggle_tol = parameter_list[11]
+    
+    if toggle_tol == 1:
+        err = parameter_list[12]
+    
+    print("\n### CALCULATION IN PROGRESS. ###")
+    
+    # Summon the solution program
+    # Insert the following program's name here, w/o the suffix ".py"
+    import function_oriented_prog
+    function_oriented_prog
+    print("\n### PROGRAM EXECUTED. ###")
+
+if black_box_run == True:
+    print("\n### CALCULATION IN PROGRESS. ###")
+    # Summon the solution program
+    # Insert the following program's name here, w/o the suffix ".py"
+    import function_oriented_prog
+    function_oriented_prog
+    print("\n### PROGRAM EXECUTED. ###")
+
 
 # ENDS: Whitebox input parameters user interface
